@@ -10,7 +10,7 @@ class Autopinger extends Plugin
       'author' => 'Habari Community',
       'authorurl' => 'http://habariproject.org/',
       'license' => 'Apache License 2.0',
-      'description' => 'Adds support Pingback 1.0 methods to the XML-RPC server.',
+      'description' => 'Adds XML-RPC ping support.',
       'copyright' => '2008'
     );
   }
