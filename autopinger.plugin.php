@@ -48,7 +48,7 @@ class Autopinger extends Plugin
 	 */
 	public function filter_ping_sites($result)
 	{
-		$services = Options::get(strtolower(__CLASS__) . ':pingservices');
+		$services = Options::get('autopinger__pingservices');
 		if(!is_array($services)) {
 			EventLog::log('No pings sent - no services configured.');
 			return true;
@@ -93,7 +93,8 @@ class Autopinger extends Plugin
 			switch ($action){
 				case 'Configure' :
 					$ui = new FormUI(strtolower(get_class($this)));
-					$ping_services = $ui->add('textmulti', 'pingservices', 'Ping Service URLs:');
+					$ui->append('textmulti', 'pingservices', 'option:autpinger__pingservices', 'Ping Service URLs:');
+					$ui->append( 'submit', 'save', 'Save' );
 					$ui->out();
 					break;
 			}
