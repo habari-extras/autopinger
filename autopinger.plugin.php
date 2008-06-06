@@ -10,7 +10,7 @@ class Autopinger extends Plugin
   {
     return array(
       'name'=>'Autopinger',
-      'version'=>'0.1',
+      'version'=>'0.2',
       'url' => 'http://habariproject.org/',
       'author' => 'Habari Community',
       'authorurl' => 'http://habariproject.org/',
@@ -35,7 +35,7 @@ class Autopinger extends Plugin
 	public function action_post_status_published($post)
 	{
 		if ( $post->status == Post::status( 'published' ) ) {
-			CronTab::add_single_cron( 'ping update sites', 'ping_sites', time(), 'Ping update sites.' );
+			CronTab::add_single_cron( 'ping update sites', array('Autopinger', 'ping_sites'), time(), 'Ping update sites.' );
 			EventLog::log('Crontab added', 'info', 'default', null, null );
 		}
 	}
@@ -46,12 +46,12 @@ class Autopinger extends Plugin
 	 * @param boolean $result The result of the cron job, false if failed
 	 * @return boolean The result of the cron job, false if failed to get rescheduled
 	 */
-	public function filter_ping_sites($result)
+	public static function ping_sites($result)
 	{
-		$services = Options::get('autopinger__pingservices');
+		$services = Options::get( 'autopinger__pingservices' );
 		if(!is_array($services)) {
 			EventLog::log('No pings sent - no services configured.');
-			return true;
+			return false;
 		}
 		else {
 			$count= 0;
@@ -75,7 +75,7 @@ class Autopinger extends Plugin
 	public function filter_plugin_config($actions, $plugin_id)
 	{
 		if ($plugin_id == $this->plugin_id()){
-			$actions[] = 'Configure';
+			$actions[] = _t( 'Configure' );
 		}
 
 		return $actions;
@@ -91,9 +91,9 @@ class Autopinger extends Plugin
 	{
 		if ($plugin_id == $this->plugin_id()){
 			switch ($action){
-				case 'Configure' :
+				case _t( 'Configure' ):
 					$ui = new FormUI(strtolower(get_class($this)));
-					$ui->append('textmulti', 'pingservices', 'option:autpinger__pingservices', 'Ping Service URLs:');
+					$ping_services = $ui->append( 'textmulti', 'ping_services', 'option:autopinger__pingservices', _t( 'Ping Service URLs:' ) );
 					$ui->append( 'submit', 'save', 'Save' );
 					$ui->out();
 					break;
