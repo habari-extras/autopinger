@@ -54,7 +54,7 @@ class Autopinger extends Plugin
 			return false;
 		}
 		else {
-			$count= 0;
+			$count = 0;
 			foreach($services as $service) {
 				$rpc = new XMLRPCClient($service, 'weblogUpdates');
 				$ping = $rpc->ping(Options::get('title'), Site::get_url('habari'));
