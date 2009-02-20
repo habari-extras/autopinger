@@ -1,0 +1,11 @@
+<plugin>
+	<name>Autopinger</name>
+	<version>0.2</version>
+	<url>http://habariproject.org/</url>
+	<author>Habari Community</author>
+	<authorurl>http://habariproject.org/</authorurl>
+	<license>Apache License 2.0</license>
+	<description>Adds XML-RPC ping support.</description>
+	<copyright>2008</copyright>
+</plugin>
+
