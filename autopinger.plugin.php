@@ -10,7 +10,7 @@ class Autopinger extends Plugin
   {
     return array(
       'name'=>'Autopinger',
-      'version'=>'0.2',
+      'version'=>'0.3',
       'url' => 'http://habariproject.org/',
       'author' => 'Habari Community',
       'authorurl' => 'http://habariproject.org/',
@@ -32,12 +32,10 @@ class Autopinger extends Plugin
 	 *
 	 * @param Post $post A post object whose status has been set to published
 	 */
-	public function action_post_status_published($post)
+	public function action_post_publish_after( $post )
 	{
-		if ( $post->status == Post::status( 'published' ) ) {
-			CronTab::add_single_cron( 'ping update sites', array('Autopinger', 'ping_sites'), time(), 'Ping update sites.' );
-			EventLog::log('Crontab added', 'info', 'default', null, null );
-		}
+		CronTab::add_single_cron( 'ping update sites', array( 'Autopinger', 'ping_sites' ), time(), 'Ping update sites.' );
+		EventLog::log( 'Crontab added', 'info', 'default', null, null );
 	}
 
 	/**
