@@ -32,10 +32,12 @@ class Autopinger extends Plugin
 	 *
 	 * @param Post $post A post object whose status has been set to published
 	 */
-	public function action_post_publish_after( $post )
+	public function action_post_status_published( $post)
 	{
-		CronTab::add_single_cron( 'ping update sites', array( 'Autopinger', 'ping_sites' ), time(), 'Ping update sites.' );
-		EventLog::log( 'Crontab added', 'info', 'default', null, null );
+		if ( $post->status == Post::status( 'published' ) && $post->pubdate->int <= time() ) {
+			CronTab::add_single_cron( 'ping update sites', array( 'Autopinger', 'ping_sites' ), time(), 'Ping update sites.' );
+			EventLog::log( 'Crontab added', 'info', 'default', null, null );
+		}
 	}
 
 	/**
