@@ -1,31 +1,13 @@
 <?php
 class Autopinger extends Plugin
 {
-  /**
-   * Respond to plugin info request
-   *
-   * @return array Info about plugin
-   */
-  function info()
-  {
-    return array(
-      'name'=>'Autopinger',
-      'version'=>'0.3',
-      'url' => 'http://habariproject.org/',
-      'author' => 'Habari Community',
-      'authorurl' => 'http://habariproject.org/',
-      'license' => 'Apache License 2.0',
-      'description' => 'Adds XML-RPC ping support.',
-      'copyright' => '2008'
-    );
-  }
 
 	/**
-	 * Configure beacon information for the plugin
-	 */
+	* Configure beacon information for the plugin
+	*/
 	function action_update_check() {
 		Update::add( 'Autopinger', 'c515ef39-b387-33e4-f14f-40628f11415b',  $this->info->version );
-  }
+	}
 
 	/**
 	 * When a post is published, add a cron entry to do pinging
