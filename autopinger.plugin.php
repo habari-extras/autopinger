@@ -93,7 +93,7 @@ class Autopinger extends Plugin
 	 */
 	public function xmlrpc_weblogUpdates__ping($params, $rpcserver)
 	{
-		EventLog::log("Recieved ping via XMLRPC: {$params[0]} {$params[1]}", 'info', 'default' );
+		EventLog::log("Received ping via XMLRPC: {$params[0]} {$params[1]}", 'info', 'default' );
 		return true;
 	}
 
