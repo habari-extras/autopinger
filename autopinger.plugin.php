@@ -9,8 +9,8 @@ class Autopinger extends Plugin
 	 */
 	public function action_post_status_published( $post)
 	{
-		if ( $post->status == Post::status( 'published' ) && $post->pubdate->int <= time() ) {
-			CronTab::add_single_cron( 'ping update sites', array( 'Autopinger', 'ping_sites' ), time(), 'Ping update sites.' );
+		if ( $post->status == Post::status( 'published' ) && $post->pubdate <= HabariDateTime::date_create() ) {
+			CronTab::add_single_cron( 'ping update sites', array( 'Autopinger', 'ping_sites' ), HabariDateTime::date_create()->int, 'Ping update sites.' );
 			EventLog::log( 'Crontab added', 'info', 'default', null, null );
 		}
 	}
