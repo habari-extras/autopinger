@@ -8,4 +8,7 @@
 	<url>http://habariproject.org/</url>
 	<description><![CDATA[Adds XML-RPC ping support.]]></description>
 	<copyright>2009</copyright>
+	<provides>
+		<feature url="http://wiki.habariproject.org/en/Feature/ping">ping</feature>
+	</provides>
 </pluggable> 
