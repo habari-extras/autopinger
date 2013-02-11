@@ -1,4 +1,7 @@
 <?php
+
+	namespace Habari;
+
 class Autopinger extends Plugin
 {
 
