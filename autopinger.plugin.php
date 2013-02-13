@@ -13,7 +13,7 @@ class Autopinger extends Plugin
 	public function action_post_status_published( $post)
 	{
 		if ( $post->status == Post::status( 'published' ) && $post->pubdate <= DateTime::create() ) {
-			CronTab::add_single_cron( 'ping update sites', array( 'Autopinger', 'ping_sites' ), DateTime::create()->int, 'Ping update sites.' );
+			CronTab::add_single_cron( 'ping update sites', Method::create( 'Autopinger', 'ping_sites' ), DateTime::create()->int, 'Ping update sites.' );
 			EventLog::log( 'Crontab added', 'info', 'default', null, null );
 		}
 	}
